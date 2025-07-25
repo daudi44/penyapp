@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "850799576690",
+    "project_id": "penyapp-eb2c0",
+    "storage_bucket": "penyapp-eb2c0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850799576690:android:72ec3f71182943d67024eb",
+        "android_client_info": {
+          "package_name": "com.daudi.penyapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRa1wMmEVsMN2ln7v4BjZEdtRka4r6KrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850799576690:android:0d3b664895f5f0f07024eb",
+        "android_client_info": {
+          "package_name": "com.example.penyapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRa1wMmEVsMN2ln7v4BjZEdtRka4r6KrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
