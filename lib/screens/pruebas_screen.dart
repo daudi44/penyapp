@@ -55,9 +55,12 @@ class PruebasScreen extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF059669), // Emerald 600
-              Color(0xFF10B981), // Emerald 500
-              Color(0xFF34D399), // Emerald 400
+              // change colors to dark purple gradient
+              Color(0xFF6D28D9), // Purple 800
+              Color(0xFF7C3AED), // Purple 700
+              Color(0xFF8B5CF6), // Purple 600
+              Color(0xFFA78BFA), // Purple 500
+              
             ],
           ),
         ),
