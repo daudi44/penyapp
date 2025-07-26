@@ -58,11 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.list_alt),
-                label: 'Pruebas',
+                label: 'Proves',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.emoji_events),
-                label: 'Puntuaciones',
+                label: 'Classificació',
               ),
             ],
           ),

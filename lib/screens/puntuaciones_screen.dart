@@ -483,8 +483,8 @@ class _PuntuacionesScreenState extends State<PuntuacionesScreen>
             child: Column(
               children: [
                 _buildCardHeader(grupo, index, isWinner, isPodium),
-                const SizedBox(height: 16),
-                _buildPruebasGrid(grupo, pruebas, resultados),
+                // const SizedBox(height: 16),
+                // _buildPruebasGrid(grupo, pruebas, resultados),
               ],
             ),
           ),

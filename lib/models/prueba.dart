@@ -4,42 +4,55 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Prueba {
   final String id;
   final String nombre;
-  final DateTime horario;
-  final String lugar;
-  final int puntosMaximos;
-  final int orden;
+  final String descripcion;
   final String categoria;
+  final int puntosMaximos;
+  final String valoracion;
+  final String unidadMedida;
+  final int orden;
+
+  final String? lugar;
+  final DateTime? horario;
 
   Prueba({
     required this.id,
     required this.nombre,
-    required this.horario,
-    required this.lugar,
-    required this.puntosMaximos,
-    required this.orden,
+    required this.descripcion,
     required this.categoria,
+    required this.puntosMaximos,
+    required this.valoracion,
+    required this.unidadMedida,
+    required this.orden,
+    this.lugar,
+    this.horario,
   });
 
   factory Prueba.fromFirestore(Map<String, dynamic> data, String id) {
     return Prueba(
       id: id,
-      nombre: data['nombre'] ?? 'Prova sense nom',
-      horario: (data['horario'] as Timestamp).toDate(),
-      lugar: data['lugar'] ?? 'Lloc desconegut',
-      puntosMaximos: (data['puntosMaximos'] as num?)?.toInt() ?? 0,
-      orden: (data['orden'] as num?)?.toInt() ?? 999,
-      categoria: data['categoria'] ?? 'azul',
+      nombre: data['nombre'] ?? 'Sense nom',
+      lugar: data['lugar'] ?? 'Sense lloc',
+      categoria: data['categoria'] ?? 'Sense categoria',
+      puntosMaximos: data['puntosMaximos'] ?? 0,
+      orden: data['orden'] ?? 0,
+      descripcion: data['descripcion'] ?? '',
+      valoracion: data['valoracion'] ?? 'Sense valoració',
+      unidadMedida: data['unidadMedida'] ?? 'Sense unitat',
+      horario: data['horario'] != null ? (data['horario'] as Timestamp).toDate() : null,
     );
   }
 
   Map<String, dynamic> toFirestore() {
     return {
       'nombre': nombre,
-      'horario': Timestamp.fromDate(horario),
-      'lugar': lugar,
-      'puntosMaximos': puntosMaximos,
-      'orden': orden,
+      'descripcion': descripcion,
       'categoria': categoria,
+      'puntosMaximos': puntosMaximos,
+      'valoracion': valoracion,
+      'unidadMedida': unidadMedida,
+      'orden': orden,
+      'lugar': lugar,
+      'horario': null,
     };
   }
 }

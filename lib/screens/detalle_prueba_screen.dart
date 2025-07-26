@@ -43,8 +43,10 @@ class _DetallePruebaScreenState extends State<DetallePruebaScreen> {
             .doc(resultado.idGrupo)
             .get();
         if (grupoSnap.exists) {
-          gruposMap[resultado.idGrupo] =
-              Grupo.fromFirestore(grupoSnap.data()!, grupoSnap.id);
+          gruposMap[resultado.idGrupo] = Grupo.fromFirestore(
+            grupoSnap.data()!,
+            grupoSnap.id,
+          );
         }
       }
     }
@@ -59,14 +61,18 @@ class _DetallePruebaScreenState extends State<DetallePruebaScreen> {
       );
     }).toList();
 
-    listaConGrupo.sort((a, b) => a.resultado.posicion.compareTo(b.resultado.posicion));
+    listaConGrupo.sort(
+      (a, b) => a.resultado.posicion.compareTo(b.resultado.posicion),
+    );
     return listaConGrupo;
   }
 
   @override
   Widget build(BuildContext context) {
     final prueba = widget.prueba;
-    final fechaHora = DateFormat('dd/MM/yyyy – HH:mm').format(prueba.horario);
+    final fechaHora = prueba.horario != null
+        ? DateFormat('dd/MM/yyyy – HH:mm').format(prueba.horario!)
+        : 'Per determinar';
 
     return Scaffold(
       backgroundColor: const Color(0xFFF4F3F8),
@@ -107,10 +113,9 @@ class _DetallePruebaScreenState extends State<DetallePruebaScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _infoRow(Icons.place, 'Lugar', prueba.lugar),
-                  _infoRow(Icons.schedule, 'Horario', fechaHora),
+                  _infoRow(Icons.place, 'Lloc', prueba.lugar ?? 'Per determinar'),
+                  _infoRow(Icons.schedule, 'Hora', fechaHora),
                   _infoRow(Icons.category, 'Categoría', prueba.categoria),
-                  _infoRow(Icons.emoji_events, 'Puntos máx', '${prueba.puntosMaximos}'),
                 ],
               ),
             ),
@@ -125,7 +130,7 @@ class _DetallePruebaScreenState extends State<DetallePruebaScreen> {
                   Icon(Icons.leaderboard, color: Colors.deepPurple),
                   SizedBox(width: 8),
                   Text(
-                    'Resultados',
+                    'Resultats',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -150,7 +155,10 @@ class _DetallePruebaScreenState extends State<DetallePruebaScreen> {
                   }
 
                   return ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 4,
+                    ),
                     itemCount: resultados.length,
                     itemBuilder: (context, index) {
                       final r = resultados[index];
@@ -172,20 +180,29 @@ class _DetallePruebaScreenState extends State<DetallePruebaScreen> {
                           ],
                         ),
                         child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
                           leading: CircleAvatar(
                             backgroundColor: Colors.deepPurple,
                             child: Text(
                               '${r.resultado.posicion}',
-                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           title: Text(
                             r.grupo.nombre,
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                           subtitle: Text(
-                            'Puntos: ${r.puntos}',
+                            'Punts: ${r.puntos}',
                             style: const TextStyle(color: Colors.white70),
                           ),
                           trailing: r.grupo.logoUrl != null
