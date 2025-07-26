@@ -6,11 +6,10 @@ class Prueba {
   final String nombre;
   final String descripcion;
   final String categoria;
-  final int puntosMaximos;
+  final int puntuacionMaxima;
   final String valoracion;
   final String unidadMedida;
   final int orden;
-
   final String? lugar;
   final DateTime? horario;
 
@@ -19,7 +18,7 @@ class Prueba {
     required this.nombre,
     required this.descripcion,
     required this.categoria,
-    required this.puntosMaximos,
+    required this.puntuacionMaxima,
     required this.valoracion,
     required this.unidadMedida,
     required this.orden,
@@ -28,31 +27,44 @@ class Prueba {
   });
 
   factory Prueba.fromFirestore(Map<String, dynamic> data, String id) {
+    final rawHorario = data['horario']; // asegúrate que se llama 'horari'
+
+    DateTime? parsedHorario;
+    if (rawHorario is Timestamp) {
+      parsedHorario = rawHorario.toDate();
+    } else if (rawHorario is String) {
+      try {
+        parsedHorario = DateTime.parse(rawHorario);
+      } catch (_) {
+        parsedHorario = null;
+      }
+    }
+
     return Prueba(
       id: id,
       nombre: data['nombre'] ?? 'Sense nom',
-      lugar: data['lugar'] ?? 'Sense lloc',
+      descripcion: data['descripcio'] ?? '',
       categoria: data['categoria'] ?? 'Sense categoria',
-      puntosMaximos: data['puntosMaximos'] ?? 0,
+      puntuacionMaxima: data['puntuacionMaxima'] ?? 0,
+      valoracion: data['valoracion'] ?? '',
+      unidadMedida: data['unidadMedida'] ?? '',
       orden: data['orden'] ?? 0,
-      descripcion: data['descripcion'] ?? '',
-      valoracion: data['valoracion'] ?? 'Sense valoració',
-      unidadMedida: data['unidadMedida'] ?? 'Sense unitat',
-      horario: data['horario'] != null ? (data['horario'] as Timestamp).toDate() : null,
+      lugar: data['lugar'],
+      horario: parsedHorario,
     );
   }
 
   Map<String, dynamic> toFirestore() {
     return {
-      'nombre': nombre,
-      'descripcion': descripcion,
+      'nom': nombre,
+      'descripcio': descripcion,
       'categoria': categoria,
-      'puntosMaximos': puntosMaximos,
-      'valoracion': valoracion,
-      'unidadMedida': unidadMedida,
-      'orden': orden,
-      'lugar': lugar,
-      'horario': null,
+      'puntuacioMaxima': puntuacionMaxima,
+      'valoracio': valoracion,
+      'unitatMesura': unidadMedida,
+      'ordre': orden,
+      'lloc': lugar,
+      'horari': horario != null ? Timestamp.fromDate(horario!) : null,
     };
   }
 }
