@@ -1,23 +1,44 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:penyapp/firebase_options.dart'; // Ajusta la ruta si es diferente
-import 'package:penyapp/screens/puntuaciones_screen.dart'; // <--- ¡Importa tu nueva pantalla!
-import 'dart:developer'; // Mantén el import de log
 
-void main() async {
+import './screens/home_screen.dart'; // tu pantalla principal
+
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  runApp(const AppInitializer());
+}
 
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
+class AppInitializer extends StatelessWidget {
+  const AppInitializer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        // Si aún no terminó la inicialización
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
+
+        // Si terminó sin errores
+        if (snapshot.hasError) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(child: Text('Error inicializando Firebase: ${snapshot.error}')),
+            ),
+          );
+        }
+
+        // Inicialización correcta, cargar la app normal
+        return const MyApp();
+      },
     );
-    log('Firebase inicializado correctamente!');
-  } catch (e) {
-    log('Error al inicializar Firebase: $e');
   }
-
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -26,13 +47,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'PenyApp',
+      title: 'Tu App',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        secondaryHeaderColor: Colors.white,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: Colors.deepPurple,
       ),
-      home: const PuntuacionesScreen(),
+      home: const HomeScreen(),
     );
   }
 }

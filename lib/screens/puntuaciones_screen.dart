@@ -161,7 +161,7 @@ class _PuntuacionesScreenState extends State<PuntuacionesScreen>
       icon: Icon(
         _isTableView ? Icons.view_list_rounded : Icons.table_chart_rounded,
       ),
-      label: Text(_isTableView ? 'Vista Cards' : 'Vista Tabla'),
+      label: Text(_isTableView ? 'Veure llistat' : 'Veure taula'),
     );
   }
 
@@ -376,7 +376,7 @@ class _PuntuacionesScreenState extends State<PuntuacionesScreen>
         children: [
           Expanded(
             child: _buildStatItem(
-              'Total Grups',
+              'Penyes Totals',
               grupos.length.toString(),
               Icons.groups_rounded,
               const Color(0xFF059669),
@@ -726,7 +726,7 @@ class _PuntuacionesScreenState extends State<PuntuacionesScreen>
               Icon(Icons.groups_rounded, size: 20, color: Color(0xFF374151)),
               SizedBox(width: 8),
               Text(
-                'Peña',
+                'Penya',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
